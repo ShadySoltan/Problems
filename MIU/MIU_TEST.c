@@ -1100,7 +1100,5 @@ int isTrivalent(int a[ ], int len)
 
 int main()
 {
-    int arr[] =  { 2147483647, -1, 1,-2147483648};
-    int size = sizeof(arr)/sizeof(arr[0]);
-    printf("%d",isTrivalent(arr,size));
+
 }
