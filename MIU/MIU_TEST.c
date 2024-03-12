@@ -1098,7 +1098,148 @@ int isTrivalent(int a[ ], int len)
     }
 }
 
+int countRepresentations(int numRupees)
+{
+    int count = 0;
+        for (int rupee20=0; rupee20<=numRupees; rupee20+=20)
+            for (int rupee10=0; rupee10<=numRupees; rupee10+=10)
+                for (int rupee5=0; rupee5<=numRupees; rupee5+=5)
+                    for (int rupee2=0; rupee2<=numRupees; rupee2+=2)
+                        for (int rupee1=0; rupee1<=numRupees; rupee1++)
+                        {
+                            if (rupee20+rupee10+rupee5+rupee2+rupee1 == numRupees) 
+                            count++;
+                        }
+    return count;
+}
+
+int isSequentiallyBounded(int a[], int len)
+{
+    if (len == 0)
+    {
+        return 1; // Empty array is considered sequentially-bounded
+    }
+
+    for (int i = 0; i < len - 1; i++)
+    {
+        if (a[i] > a[i + 1])
+        {
+            return 0; // Array is not in ascending order
+        }
+        
+        if(a[i] < 0)
+        {
+            return 0; //Negative value
+        }
+
+        int counter = 1; // Start counter at 1, since we've already seen one occurrence
+        for (int j = 0; j < len; j++)
+        {
+            if (a[j] == a[i])
+            {
+                counter++;
+                if (counter > a[i])
+                {
+                    return 0; // Value occurs more than its index allows
+                }
+            }
+        }
+    }
+
+    return 1; // Array is sequentially-bounded
+}
+
+void swap(int *x,int *y)
+{
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+void SortArray_ASC(int *arr, int len)
+{
+    for(int i = 0; i < len; i++)
+    {
+        for(int j = i+1; j < len; j++)
+        {
+            if(arr[i] > arr[j])
+            {
+                swap(&arr[i],&arr[j]);
+            }
+        }
+    }
+}
+
+int isMinMaxDisjoint(int a[], int len)
+{
+    if (len < 2)
+    {
+        return 0; // Array must have at least 2 elements
+    }
+
+    int Min = a[0], Max = a[0], indexMax = 0;
+
+    for (int i = 1; i < len; i++)
+    {
+        if (a[i] < Min)
+        {
+            Min = a[i];
+        }
+
+        if (a[i] > Max)
+        {
+            Max = a[i];
+            indexMax = i;
+        }
+    }
+
+    if (indexMax == 0 && a[1] == Min)
+    {
+        return 0; // Special case when max is at index 0
+    }
+
+    if (indexMax == len - 1 && a[len - 2] == Min)
+    {
+        return 0; // Special case when max is at last index
+    }
+
+    if (indexMax > 0 && indexMax < len - 1 && (a[indexMax - 1] == Min || a[indexMax + 1] == Min))
+    {
+        return 0; // Min and Max are adjacent
+    }
+
+    int countMin = 0, countMax = 0;
+    for (int i = 0; i < len; i++)
+    {
+        if (a[i] == Min)
+        {
+            countMin++;
+            if (countMin > 1)
+            {
+                return 0; // Min occurs more than once
+            }
+        }
+        else if (a[i] == Max)
+        {
+            countMax++;
+            if (countMax > 1)
+            {
+                return 0; // Max occurs more than once
+            }
+        }
+    }
+
+    if (Min == Max)
+    {
+        return 0; // Min and Max are equal
+    }
+
+    return 1; // Array is minmax-disjoint
+}
+
+
+
 int main()
 {
-
+    /*(P19)int smallest(int n)*/
 }
