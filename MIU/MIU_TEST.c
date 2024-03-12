@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 
 int Centered(int *arr, int size)
 {
@@ -813,7 +814,175 @@ int isNUnique(int a[ ], int len, int n)
     }
 }
 
+int isSquare(int n)
+{
+    for(int i = 0; i <= n/2; i++)
+    {
+        if(i*i == n)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int myPow(int n, int p)
+{
+    int power = 1;
+    for(int i = 0; i < p; i++)
+    {
+        power *= n;
+    }
+    return power;
+}
+
+int isLegalNumber(int a[ ], int len, int base)
+{
+    int legal = 1;
+        for(int i = 0; i < len; i++)
+    {
+        if(a[i] > base)
+        {
+            legal = 0;
+            break;
+        }
+    }
+
+    return legal;
+}
+
+int converteToBase10(int a[ ], int len, int base)
+{
+    int leg = isLegalNumber(a,len,base);
+
+    if(leg == 0)
+    {
+        return 0;
+    }
+
+    int power = len-1;
+    int convertedNumber = 0;
+
+    for(int i = 0; i < len; i++)
+    {
+        convertedNumber += ((a[i])*(myPow(base,power)));
+        power--;
+    }
+
+    return convertedNumber;
+}
+
+int arrayHasNoZeros(int *arr, int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        if(arr[i] == 0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+bool allDigitsSeen(bool digits[])
+{
+    for (int i = 0; i < 10; i++)
+    {
+        if (!digits[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+int computeDepth(int n)
+{
+    if (n <= 0)
+    {
+        return -1; // Invalid input
+    }
+
+    bool digits[10] = {false};
+    int i = 1;
+    while (true)
+    {
+        int cont = n * i;
+        while (cont > 0)
+        {
+            int digit = cont % 10;
+            digits[digit] = true;
+            cont /= 10;
+        }
+        if (allDigitsSeen(digits))
+        {
+            return i;
+        }
+        i++;
+    }
+}
+
+int matches(int a[], int len, int p[]) {
+    int P_len = p[0];
+    int P_abs_sum = 0;
+    int j = 0;
+    int error = 0;
+
+    for (int i = 1; i <= P_len; i++) {
+        P_abs_sum += abs(p[i]);
+        int isNegative;
+        if (p[i] < 0) {
+            isNegative = 1;
+        } else {
+            isNegative = 0;
+        }
+
+        for (int k = 0; k < abs(p[i]); k++) {
+            if (j >= len) {
+                error = 1;
+                break;
+            }
+
+            if ((isNegative == 1 && a[j] < 0) || (isNegative == 0 && a[j] >= 0)) {
+                j++;
+            } else {
+                error = 1;
+                break;
+            }
+        }
+        if (error == 1) {
+            break;
+        }
+    }
+
+    if (error == 0 && P_abs_sum == len) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int isStacked(int n)
+{
+    int stacked = 0;
+    int i = 1;
+    while (stacked < n)
+    {
+        stacked += i;
+        i++;
+    }
+
+    if (stacked == n)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int main()
 {
-    /*isSquare*/
+    
 }
