@@ -1001,7 +1001,106 @@ int isSumSafe(int a[ ], int len)
     return 1;
 }
 
+int isIsolated(long n)
+{
+    if(n > 2097151)
+    {
+        return 0;
+    }
+
+    long square = n*n;
+    long cube = n*n*n;
+    int cube_digits = numberSize(cube);
+    int square_digits = numberSize(square);
+
+    for(int i = 0; i < cube_digits; i++)
+    {
+        int c_digit = cube%10;
+        cube = cube/10;
+        int s_digit;
+        long squares = square;
+        for(int j = 0; j < square_digits; j++)
+        {
+            s_digit = squares%10;
+            if(c_digit == s_digit)
+            {
+                return 0;
+            }
+            squares = squares/10;
+        }
+    }
+    return 1;
+}
+
+int isVanilla(int a[ ], int len)
+{
+    if(len == 0)
+    {
+        return 0;
+    }
+
+    int x = ((a[0])%10);
+    
+    for(int i = 0; i < len; i++)
+    {
+        int number = a[i];
+        int digit;
+        while(number > 0)
+        {
+            digit = number%10;
+            if(digit != x)
+            {
+                return 0;
+            }
+            number = number/10;
+        }
+    }
+    return 1;
+}
+
+int SearchArray(int *arr, int len, int element)
+{
+    for(int i = 0; i < len; i++)
+    {
+        if(element == arr[i])
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int isTrivalent(int a[ ], int len)
+{
+    int Triv_Arr[3];
+    int TrivCounter = 0;
+
+    for(int i = 0; i < len; i++)
+    {
+        if(SearchArray(Triv_Arr,3,a[i]) == 0 && TrivCounter < 3)
+        {
+            Triv_Arr[TrivCounter] = a[i];
+            TrivCounter++;
+        }
+        else if(SearchArray(Triv_Arr,3,a[i]) == 0 && TrivCounter == 3)
+        {
+            return 0;
+        }
+    }
+
+    if(TrivCounter != 3)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 int main()
 {
-    
+    int arr[] =  { 2147483647, -1, 1,-2147483648};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    printf("%d",isTrivalent(arr,size));
 }
