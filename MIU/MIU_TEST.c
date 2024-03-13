@@ -1237,9 +1237,174 @@ int isMinMaxDisjoint(int a[], int len)
     return 1; // Array is minmax-disjoint
 }
 
+int smallest(int n)
+{
+    int found = 0;
+    int currentNumber = 1;
+    int success = 0;
 
+    while(found == 0)
+    {
+        int number = currentNumber;
+        success = 0;
+        for(int i = 1; i <= n; i++)
+        {
+            number = currentNumber*i;
+            while(number>0)
+            {
+                int digit = number%10;
+                if(digit == 2)
+                {
+                    success++;
+                    break;
+                }
+                number = number/10;
+            }
+        }
+
+        if(success == n)
+        {
+            found = 1;
+        }
+
+        currentNumber++;
+    }
+
+    return currentNumber-1;
+}
+
+int numberOfClusters(int *arr, int size)
+{
+    int cluster = 1;
+    for(int i = 1; i < size; i++)
+    {
+        if(arr[i] != arr[i-1])
+        {
+            cluster++;
+        }
+        else
+        {
+            continue;
+        }
+    }
+    return cluster;
+}
+
+void printArr(int *arr, int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    printf("\n");
+}
+
+int *clusterCompression(int a[ ], int len)
+{
+    int  Result_Size = numberOfClusters(a,len);
+    int* Result = (int*)malloc(Result_Size*sizeof(int));
+    int dynamic_index = 0;
+
+    for(int i = 1; i <= len; i++)
+    {
+        if(a[i] != a[i-1])
+        {
+            Result[dynamic_index] = a[i-1];
+            dynamic_index++;
+        }
+    }
+    return Result;
+}
+
+int isRailroadTie(int a[], int len)
+{
+    int railRoad = 1;
+    int zeroCount = 0;
+    int nonZeroNeighbours = 0;
+
+    if(len == 1)
+    {
+        railRoad = 0;
+        return railRoad;
+    }
+    else
+    {}
+
+    for(int i = 0; i < len; i++)
+    {
+        nonZeroNeighbours = 0;
+        if(a[i] == 0)
+        {
+            zeroCount++;
+            if(i == 0)
+            {
+                railRoad = 0;
+                break;
+            }
+            else if(i == len-1)
+            {
+                railRoad = 0;
+                break;
+            }
+            else
+            {
+                if(a[i-1] == 0 || a[i+1] == 0)
+                {
+                    railRoad = 0;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            if(i == 0)
+            {
+                if(a[i+1] == 0)
+                {
+                railRoad = 0;
+                break;
+                }
+                else
+                {}
+            }
+            else if(i == len-1)
+            {
+                if(a[i-1] == 0)
+                {
+                railRoad = 0;
+                break;
+                }
+                else
+                {}
+            }
+            else
+            {
+                if(a[i-1] != 0)
+                {
+                    nonZeroNeighbours++;
+                }
+                else
+                {}
+                
+                if(a[i+1] != 0)
+                {
+                    nonZeroNeighbours++;
+                }
+                else
+                {}
+
+                if(nonZeroNeighbours != 1)
+                {
+                    railRoad = 0;
+                    break;
+                }
+            }
+        }
+    }
+    return railRoad;
+}
 
 int main()
 {
-    /*(P19)int smallest(int n)*/
+
 }
