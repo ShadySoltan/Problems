@@ -1504,7 +1504,32 @@ int isOddHeavy(int a[ ], int len)
     }
 }
 
+int getExponent(int n, int p)
+{
+    if(p <= 1)
+    {
+        return -1;
+    }
+    else
+    {}
+
+    int found = 0;
+    int Exponent = 0;
+    while(found == 0)
+    {
+        if(n%((int)pow(p,Exponent)) == 0)
+        {
+            Exponent++;
+        }
+        else
+        {
+            found = 1;
+        }
+    }
+    return Exponent-1;
+}
+
 int main()
 {
-    /*(P24) getExponent(n, p)*/
+   printf("%d",getExponent(162,3));
 }
