@@ -1448,7 +1448,63 @@ int fullnessQuotient(int n)
     return results;
 }
 
+int isPacked(int a[], int len) {
+    int index_counter = 1;
+    
+    for (int i = 0; i < len; i += index_counter) {
+        int x = 0;
+        for (int j = i; j < len && a[i] == a[j]; j++) {
+            x++;
+        }
+        if (x != a[i] || (i > 0 && a[i] == a[i - 1])) {
+            return 0;
+        }
+        index_counter = x;
+    }
+    
+    return 1;
+}
+
+int isOddHeavy(int a[ ], int len)
+{
+    int oddValues = 0;
+    for(int i = 0; i < len; i++)
+    {
+        if(a[i]%2 != 0)
+        {
+            oddValues++;
+            for(int j = 0; j < len; j++)
+            {
+                if(j == i)
+                {
+                    continue;
+                }
+                else
+                {
+                    if(a[i] < a[j] && a[j]%2 == 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {}
+                }
+            }
+        }
+        else
+        {}
+    }
+
+    if(oddValues == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 int main()
 {
-    printf("%d",fullnessQuotient(-4));
+    /*(P24) getExponent(n, p)*/
 }
