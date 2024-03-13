@@ -1404,7 +1404,51 @@ int isRailroadTie(int a[], int len)
     return railRoad;
 }
 
+int ToAnyBase(int number, int base) {
+    int convertedNumber = 0;
+    int multiplier = 1;
+
+    while (number != 0) {
+        int remainder = number % base;
+        convertedNumber += remainder * multiplier;
+        multiplier *= 10;
+        number /= base;
+    }
+    return convertedNumber;
+}
+
+int fullnessQuotient(int n)
+{
+    int results = 0;
+    int error = 0;
+    if(n < 0)
+    {
+        results = -1;
+        return results;
+    }
+    for(int i = 2; i <= 9; i++)
+    {
+        error = 0;
+        int myNumber = ToAnyBase(n,i);
+        while(myNumber > 0)
+        {
+            int digit = myNumber%10;
+            if(digit == 0)
+            {
+                error = 1;
+                break;
+            }
+            myNumber = myNumber/10;
+        }
+        if(error == 0)
+        {
+            results++;
+        }
+    }
+    return results;
+}
+
 int main()
 {
-
+    printf("%d",fullnessQuotient(-4));
 }
