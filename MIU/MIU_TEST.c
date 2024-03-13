@@ -1292,9 +1292,16 @@ int numberOfClusters(int *arr, int size)
 
 void printArr(int *arr, int size)
 {
+    if(size == 0 || arr == NULL)
+    {
+        printf("NULL");
+    }
+    else
+    {
     for(int i = 0; i < size; i++)
     {
         printf("%d ",arr[i]);
+    }
     }
     printf("\n");
 }
@@ -1529,7 +1536,97 @@ int getExponent(int n, int p)
     return Exponent-1;
 }
 
-int main()
+int is121Array(int a[], int len) 
 {
-   printf("%d",getExponent(162,3));
+    int twoCount = 0;
+    int onesDone = 0;
+    if(a[0] != a[len-1] || a[0] != 1)
+    {
+        return 0;
+    }
+    else
+    {
+        
+        for(int i = 0; i <= len/2; i++)
+        {
+            if(a[i] == a[len-i-1])
+            {
+                if(a[i] == 2)
+                {
+                twoCount++;
+                onesDone = 1;
+                }
+
+                if(a[i] == 1 && onesDone == 1)
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+
+    if(twoCount > 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int countOnesInBinary(int BIN,int *MaxIndex)
+{
+    int count = 0;
+    int index = 0;
+    while(BIN > 0)
+    {
+        int BIT = BIN%10;
+        if(BIT == 1)
+        {
+            count++;
+        }
+        BIN = BIN/10;
+        index++;
+    }
+    *MaxIndex = index;
+    return count;
+}
+
+int * filterArray(int a[ ], int len, int n, int *result_size)
+{
+    int binaryNumber = ToAnyBase(n,2);
+    int MaxIndex;
+    int Result_Size = countOnesInBinary(binaryNumber,&MaxIndex);
+    *result_size = Result_Size;
+    int *Result = (int*)malloc(Result_Size*(sizeof(int)));
+    int dynamic_index = 0;
+    if(Result_Size == 0 || MaxIndex > len)
+    {
+        free(Result);
+        return NULL;
+    }
+    else
+    {
+        for(int i = 0; i < len; i++)
+        {
+            int bit = binaryNumber%10;
+            if(bit == 1)
+            {
+                Result[dynamic_index] = a[i];
+                dynamic_index++;
+            }
+            binaryNumber = binaryNumber/10;
+        }
+    }
+    return Result;
+}
+
+int main() 
+{
+    /*(P26) largestAdjacentSum*/
 }
