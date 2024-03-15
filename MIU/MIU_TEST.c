@@ -1724,7 +1724,85 @@ int isSequencedArray(int a[ ], int len, int m, int n)
     return primeFactor;
  }
 
+int primeNumbersExist(int n)
+{
+    int count = 0;
+    for(int i = 2; i <= n; i++)
+    {
+        if(isPrime(i) == 1)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+int *encodeNumber(int n, int* resultSize)
+{
+    if(n <= 1)
+    {
+        return NULL;
+    }
+
+    int primesSize = primeNumbersExist(n);
+    int* primes = (int*)malloc(primesSize*sizeof(int));
+    int primesIndex = 0;
+
+    for(int i = 2; i <= n; i++)
+    {
+        if(isPrime(i) == 1)
+        {
+            primes[primesIndex] = i;
+            primesIndex++;
+        }
+    }
+
+    primesIndex = 0;
+    //Figure out the size of the result array
+    int myNumber = n;
+    int Result_Size = 0;
+    while(myNumber != 1)
+    {
+        if(myNumber%primes[primesIndex] == 0)
+        {
+            Result_Size++;
+            myNumber = myNumber/primes[primesIndex];
+        }
+        else
+        {
+            primesIndex++;
+        }
+    }
+
+    primesIndex = 0;
+    myNumber = n;
+    //Create the Result Array
+    int *Result = (int*)malloc(Result_Size*sizeof(int));
+    int  Result_Index = 0;
+    while(myNumber != 1)
+    {
+        if(myNumber%primes[primesIndex] == 0)
+        {
+            Result[Result_Index] = primes[primesIndex];
+            myNumber = myNumber/primes[primesIndex];
+            Result_Index++;
+        }
+        else
+        {
+            primesIndex++;
+        }
+    }
+
+    free(primes);
+
+    *resultSize = Result_Size;
+    return Result;
+}
+
 int main() 
 {
-    printf("%d",largestPrimeFactor(1));
+    int size;
+    int *arr = encodeNumber(1200,&size);
+    printArr(arr,size);  
+    free(arr); 
 }
