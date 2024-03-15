@@ -1672,50 +1672,41 @@ int checkConcatenatedSum(int n, int catlen)
 
 int isSequencedArray(int a[ ], int len, int m, int n)
 {
-    //First Check if the array is in ascending order
-    for(int i = 0; i < len; i++)
+    int AvNumbers = (n-m)+1;
+    int CheckElements = 1;
+    for(int i = 1; i < len; i++)
     {
-        for(int j = i+1; j < len; j++)
+        if(a[i] < a[i-1])
         {
-            if(a[i] > a[j])
-            {
-                return 0;
-            }
-        }
-    }
-
-    //Check if m-n condition is true
-    int *Numbers = (int*)calloc(n+1,sizeof(int));
-
-    for(int i = 0; i < len; i++)
-    {
-        if(a[i] < m || a[i] > n)
-        {
-            free(Numbers);
             return 0;
+        }
+        else if(a[i] == a[i-1] && a[i] <= n && a[i] >= m)
+        {
+            continue;
+        }
+        else if(a[i] - a[i-1] == 1 && a[i] <= n && a[i] >= m)
+        {
+            CheckElements++;
         }
         else
         {
-            Numbers[a[i]] = 1;
-        }
-    }
-
-    for(int i = 0; i < n+1; i++)
-    {
-        if(i >= m && i <= n && Numbers[i] == 0)
-        {
-            free(Numbers);
             return 0;
         }
     }
-    
-    free(Numbers);
-    return 1;
+
+    if(CheckElements == AvNumbers)
+    {
+        return 1;
+    }
+    else 
+    {
+        return 0;
+    }
 }
 
 int main() 
 {
-    int arr[] =  {5, 4, 3, 2, 1};
+    int arr[] = {5, 4, 3, 2, 1} ;
     int size = sizeof(arr)/sizeof(arr[0]);
     int m = 1, n = 5;
     printf("%d",isSequencedArray(arr,size,m,n));
