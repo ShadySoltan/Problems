@@ -1704,10 +1704,27 @@ int isSequencedArray(int a[ ], int len, int m, int n)
     }
 }
 
+ int largestPrimeFactor(int n)
+ {
+    int primeFactor = 0;
+    if( n <= 1)
+    {
+        return 0;
+    }
+    else
+    {
+        for(int i = 2; i < n; i++)
+        {
+            if(isPrime(i) == 1 && i > primeFactor && n%i == 0)
+            {
+                primeFactor = i;
+            }
+        }
+    }
+    return primeFactor;
+ }
+
 int main() 
 {
-    int arr[] = {5, 4, 3, 2, 1} ;
-    int size = sizeof(arr)/sizeof(arr[0]);
-    int m = 1, n = 5;
-    printf("%d",isSequencedArray(arr,size,m,n));
+    printf("%d",largestPrimeFactor(1));
 }
