@@ -3,6 +3,19 @@
 #include <math.h>
 #include <stdbool.h>
 
+void IS_SYSTEM_READY(float done_p)
+{
+    float completed = ((done_p/91)*100);
+    if(completed < 100)
+    {
+        printf("WARNING:SYSTEM IS NOT READY!!\nCOMPLETED: %.2f%%",completed);
+    }
+    else
+    {
+        printf("SYSTEM IS READY %.0f%% COMPLETED",completed);
+    }
+}
+
 int Centered(int *arr, int size)
 {
     if(size % 2 == 0)
@@ -1831,12 +1844,6 @@ static int matchPattern(int a[], int len, int pattern[], int patternLen)
 
 int main() 
 {
-    int arr[] = {1, 1, 2, 2, 2, 2, 3} ;
-    int arr_size = sizeof(arr)/sizeof(arr[0]);
-
-    int pattern[] =  {1, 2,3};
-    int pattern_size = sizeof(pattern)/sizeof(pattern[0]);
-
-    printf("%d",matchPattern(arr,arr_size,pattern,pattern_size));
+    IS_SYSTEM_READY(30);
     return 0;
 }
