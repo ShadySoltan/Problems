@@ -1799,10 +1799,44 @@ int *encodeNumber(int n, int* resultSize)
     return Result;
 }
 
+static int matchPattern(int a[], int len, int pattern[], int patternLen)
+{
+    int i=0; // index into a
+    int k=0; // index into pattern
+    int matches = 0; // how many times current pattern character has been matched so far
+        for (i=0; i<len; i++) 
+        {
+            if (a[i] == pattern[k])
+                matches++; // current pattern character was matched
+            else if (matches == 0 || k == patternLen-1)
+                return 0; // if pattern[k] was never matched (matches==0) or at end of pattern (k==patternLen-1)
+            else
+            {
+                k++;
+                if(pattern[k] != a[i])
+                {
+                    return 0;
+                }
+            } 
+        }
+            if (i==len && k==patternLen-1)
+            { 
+            return 1;
+            } 
+            else
+            { 
+            return 0;
+            }
+}
+
 int main() 
 {
-    int size;
-    int *arr = encodeNumber(1200,&size);
-    printArr(arr,size);  
-    free(arr); 
+    int arr[] = {1, 1, 2, 2, 2, 2, 3} ;
+    int arr_size = sizeof(arr)/sizeof(arr[0]);
+
+    int pattern[] =  {1, 2,3};
+    int pattern_size = sizeof(pattern)/sizeof(pattern[0]);
+
+    printf("%d",matchPattern(arr,arr_size,pattern,pattern_size));
+    return 0;
 }
