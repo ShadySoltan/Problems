@@ -2065,7 +2065,33 @@ int isPrimeHappy(int n)
     }
 }
 
+int isSystematicallyIncreasing(int a[ ], int len)
+{
+    int increasingIndex = 0;
+    int incrementValue = 1;
+
+    // Loop through the array
+    while (increasingIndex < len) {
+
+        int currentNumber = 1;
+        // Loop through the increasing sequence
+        for (int i = increasingIndex; i < (increasingIndex + incrementValue) && i < len; i++) {
+            // Check if the current element matches the expected number in the sequence
+            if (a[i] != currentNumber) {
+                return 0;
+            }
+            currentNumber++;
+        }
+
+        increasingIndex += incrementValue; // Move to the next increasing sequence
+        incrementValue++; // Increment the value for the next sequence
+    }
+    return 1;
+}
+
 int main() 
 {
-    printf("%d",isPrimeHappy(2));
+    int arr[] = {1, 1, 2};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    printf("%d",isSystematicallyIncreasing(arr,size));
 }
