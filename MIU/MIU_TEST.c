@@ -1842,8 +1842,42 @@ static int matchPattern(int a[], int len, int pattern[], int patternLen)
             }
 }
 
+void doIntegerBasedRounding(int a[], int n, int len) {
+    // Before rounding
+    printf("Before rounding: ");
+    for (int i = 0; i < len; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n\n");
+
+    // After rounding
+    for (int i = 0; i < len; i++) {
+        if (a[i] > 0 && n > 0) {
+            int roundDown = (a[i] / n) * n;
+            int roundUp = roundDown + n;
+
+            if ((a[i] - roundDown) < (roundUp - a[i])) {
+                a[i] = roundDown;
+            } else {
+                a[i] = roundUp;
+            }
+        }
+    }
+
+    // After rounding
+    printf("After rounding: ");
+    for (int i = 0; i < len; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+
 int main() 
 {
-    IS_SYSTEM_READY(30);
+    int arr[] = {1, 2, 3, 4, 5};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    int n = 2;
+    doIntegerBasedRounding(arr,n,size);
+    //IS_SYSTEM_READY(30);//
     return 0;
 }
