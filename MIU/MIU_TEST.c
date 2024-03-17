@@ -2018,9 +2018,54 @@ int decodeArrayx(int a[ ], int len)
     return number;
 }
 
+int isOnionArray(int a[], int len) {
+    // Check if the length of the array is odd
+    if (len % 2 == 0) {
+        return 0; // If the length is even, it can't be an onion array
+    }
+
+    int i, j, k;
+    // Iterate up to the middle of the array
+    for (i = 0; i < len / 2; i++) {
+        j = i;
+        k = len - i - 1;
+
+        // Check if the conditions are violated
+        if (a[j] < 0 || a[k] < 0 || a[j] + a[k] > 10 || a[j] == a[k]) {
+            return 0; // Not an onion array
+        }
+    }
+
+    return 1; // If all conditions are satisfied, it's an onion array
+}
+
+int isPrimeHappy(int n)
+{
+    if(n <= 2)
+    {
+        return 0;
+    }
+
+    int sum = 0;
+    for(int i = 2; i < n; i++)
+    {
+        if(isPrime(i) == 1)
+        {
+            sum+=i;
+        }
+    }
+
+    if(sum%n == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int main() 
 {
-    int arr[] = {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1};
-    int size = sizeof(arr)/sizeof(arr[0]);
-    printf("%d", decodeArrayx(arr,size));
+    printf("%d",isPrimeHappy(2));
 }
