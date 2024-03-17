@@ -1932,9 +1932,95 @@ int decodeArray(int a[ ], int len)
     }
 }
 
+int isZeroPlentiful(int a[ ], int len)
+{
+    if(len < 4)
+    {
+        return 0;
+    }
+
+    int SeqSum = 0;
+    int zeroSum = 0;
+    for(int i = 1; i < len; i++)
+    {
+        if(a[i] == 0)
+        {
+            zeroSum++;
+        }
+        else
+        {
+            zeroSum = 0;
+        }
+
+        if(zeroSum == 4)
+        {
+            SeqSum++;
+        }
+    }
+
+    return SeqSum;
+}
+
+int isDigitIncreasing(int n)
+{
+    int sum = 0;
+    int found = 0;
+    for(int i = 9; i > 0; i--)
+    {
+        int test = i;
+        sum = 0;
+        while(sum < n)
+        {
+            sum += test;
+            test = ((test*10)+i);
+        }
+        if(sum == n)
+        {
+            found = i;
+        }
+    }
+    
+    if(found > 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return found;
+    }
+}
+
+int decodeArrayx(int a[ ], int len)
+{
+    int zeroCount = 0;
+    int number = 0;
+    for(int i = 0; i < len; i++)
+    {
+        if(a[i] == 0)
+        {
+            zeroCount++;
+        }
+        else if(a[i] != 0 && a[i-1] != 0)
+        {
+            number = (number * 10);
+            zeroCount = 0;
+        }
+        else if(a[i] != 0 && a[i-1] == 0)
+        {
+            number = (number * 10) + zeroCount;
+            zeroCount = 0;
+        }
+    }
+    if(a[0] < 0)
+    {
+        number = (number * -1);
+    }
+    return number;
+}
+
 int main() 
 {
-    int arr[] = {1, 1};
+    int arr[] = {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1};
     int size = sizeof(arr)/sizeof(arr[0]);
-    printf("%d",decodeArray(arr,size));
+    printf("%d", decodeArrayx(arr,size));
 }
