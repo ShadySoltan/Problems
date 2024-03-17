@@ -1872,12 +1872,69 @@ void doIntegerBasedRounding(int a[], int n, int len) {
     printf("\n");
 }
 
+int CubeCalculate(int n)
+{   
+    int cube = 1;
+    for(int i = 0; i < 3; i++)
+    {
+        cube *= n;
+    }
+    return cube;
+}
+
+int isCubePowerful(int n)
+{
+    if(n <= 0)
+    {
+        return 0;
+    }
+
+    int sum = 0;
+    int number = n;
+    while(number > 0)
+    {
+        int digit = number%10;
+        sum += CubeCalculate(digit);
+        number = number/10;      
+    }
+    
+    if(sum == n)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int decodeArray(int a[ ], int len)
+{
+    if(len == 1)
+    {
+        return 0;
+    }
+
+    int decodedNumber = 0;
+    for(int i = 1; i < len; i++)
+    {
+        decodedNumber *= 10;
+        decodedNumber += abs((a[i-1])-(a[i])); 
+    }
+
+    if(a[0] < 0)
+    {
+        return decodedNumber *= -1;
+    }
+    else
+    {
+        return decodedNumber;
+    }
+}
+
 int main() 
 {
-    int arr[] = {1, 2, 3, 4, 5};
+    int arr[] = {1, 1};
     int size = sizeof(arr)/sizeof(arr[0]);
-    int n = 2;
-    doIntegerBasedRounding(arr,n,size);
-    //IS_SYSTEM_READY(30);//
-    return 0;
+    printf("%d",decodeArray(arr,size));
 }
