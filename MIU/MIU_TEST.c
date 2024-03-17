@@ -2089,9 +2089,55 @@ int isSystematicallyIncreasing(int a[ ], int len)
     return 1;
 }
 
+int fac(int n)
+{
+    if(n == 0 || n == 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return n*fac(n-1);
+    }
+}
+
+int isFactorialPrime(int n)
+{
+    if(isPrime(n) == 0)
+    {
+        return 0;
+    }
+
+    for(int i = 1; i < n; i++)
+    {
+        if(isPrime(i) == 1 && fac(i)+1 == n)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int largestDifferenceOfEvens(int a[ ], int len)
+{
+    int largestDiff = -1;
+    SortArray_ASC(a,len);
+
+    for(int i = 0; i < len; i++)
+    {
+        for(int j = i+1; j < len; j++)
+        {
+            if(a[j]%2 == 0 && a[i]%2 == 0 && a[j]-a[i] > largestDiff)
+            {
+                largestDiff = a[j]-a[i];
+            }
+        }
+    }
+    return largestDiff;
+}
+
 int main() 
 {
-    int arr[] = {1, 1, 2};
-    int size = sizeof(arr)/sizeof(arr[0]);
-    printf("%d",isSystematicallyIncreasing(arr,size));
+    IS_SYSTEM_READY(38);
 }
