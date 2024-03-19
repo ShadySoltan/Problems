@@ -2137,7 +2137,141 @@ int largestDifferenceOfEvens(int a[ ], int len)
     return largestDiff;
 }
 
+int isHodder(int n)
+{
+    if(isPrime(n) == 0)
+    {
+        return 0;
+    }
+
+    int hodder = 0;
+    int limit = n/2;
+    for(int i = 1; i <= n; i++)
+    {
+        if((pow(2,i)-1) == n)
+        {
+            hodder = 1;
+            break;
+        }
+    }
+    return hodder;
+}
+
+int areAnagrams(char a1[ ], char a2[ ], int len)
+{
+    int anagram = 0;
+    for(int i = 0; i < len; i++)
+    {
+        for(int j = 0; j < len; j ++)
+        {
+            if(a1[i] == a2[j])
+            {
+                anagram++;
+            }
+        }
+    }
+
+    if(anagram == len)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int closestFibonacci(int n)
+{
+    if(n < 4)
+    {
+        return n-1;
+    }
+
+    int lastTerm = 2;
+    int CurrentTerm = 3;
+    int temp;
+    while(CurrentTerm < n)
+    {
+        temp = CurrentTerm;
+        CurrentTerm = CurrentTerm+lastTerm;
+        lastTerm = temp;
+    }
+
+    return lastTerm;
+}
+
+int* computeHMS(int seconds)
+{
+    int SECS,MINS,HRS,one_hr = 3600,one_min = 60;
+
+    HRS = (seconds)/(60*60);
+    MINS = ((seconds)-(one_hr*HRS))/(60);
+    SECS = ((seconds)-(one_hr*HRS)-(MINS*60));
+    int* HMS = malloc(3*sizeof(int));
+    HMS[0] = HRS;
+    HMS[1] = MINS;
+    HMS[2] = SECS;
+
+    return HMS;
+}
+
+int isMartian(int a[ ], int len)
+{
+    int ones = 0, twos = 0;
+    for(int i = 0; i < len; i++)
+    {
+        if(a[i] == a[i+1] && i != len-1)
+        {
+            return 0;
+        }
+        else if(a[i] == 1)
+        {
+            ones++;
+        }
+        else if(a[i] == 2)
+        {
+            twos++;
+        }
+    }
+    if(ones > twos)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int isPairedN(int a[ ], int n, int len)
+{
+    if(len == 1 && a[0] == n)
+    {
+        return 1;
+    }
+    else if(len == 1 && a[0] != n)
+    {
+        return 0;
+    }
+    else
+    {}
+
+    for(int i = 0; i < len; i++)
+    {
+        for(int j = i+1; j < len; j++)
+        {
+            if(i+j == n && a[i]+a[j] == n)
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 int main() 
 {
-    IS_SYSTEM_READY(38);
+    /*P51*/
+    IS_SYSTEM_READY(51);
 }
