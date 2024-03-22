@@ -3,19 +3,6 @@
 #include <math.h>
 #include <stdbool.h>
 
-void IS_SYSTEM_READY(float done_p)
-{
-    float completed = ((done_p/91)*100);
-    if(completed < 100)
-    {
-        printf("WARNING:SYSTEM IS NOT READY!!\nCOMPLETED: %.2f%%",completed);
-    }
-    else
-    {
-        printf("SYSTEM IS READY %.0f%% COMPLETED",completed);
-    }
-}
-
 int Centered(int *arr, int size)
 {
     if(size % 2 == 0)
@@ -2270,8 +2257,21 @@ int isPairedN(int a[ ], int n, int len)
     return 0;
 }
 
-int main() 
-{
-    /*P51*/
-    IS_SYSTEM_READY(51);
+void updateMileageCounter(int a[], int miles, int len) {
+    for (int i = 0; i < len && miles > 0; i++) {
+        int diff = 9 - a[i]; // Calculate the difference to 9
+        if (diff > 0) { // If there's room to add miles without rolling over
+            if (diff >= miles) { // If we can add all miles without rolling over
+                a[i] += miles;
+                miles = 0;
+            } else { // If we need to roll over
+                a[i] = 0; // Roll over this digit
+                miles -= diff + 1; // Subtract the miles rolled over plus the one added
+            }
+        }
+    }
 }
+
+
+int main() 
+{return 0;}
